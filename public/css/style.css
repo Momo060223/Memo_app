@@ -1,0 +1,81 @@
+body{
+    background-color: #edf2f4;
+}
+.container{
+    max-width: 980px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.memo_area{
+    display: flex;
+    justify-content: space-around;
+}
+.memo_form{
+    text-align: center;
+    width: 40%;
+}
+.memo_form input[type="submit"]{
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px;
+    background-color: #38B000;
+    color: #fefefe;
+    font-weight: bold;
+}
+.memo_form h2{
+    text-align: center;
+}
+.memo_text{
+    display: block;
+    margin: 0 auto 15px;
+    border: none;
+    height: 20px;
+}
+.memo_show{
+    width: 60%;
+}
+.memo_item{
+    background-color: #fefefe;
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.memo_title{
+    width: 90%;
+}
+.memo_title p{
+    margin: 0;
+}
+.memo_title time{
+    font-size: 10px;
+}
+.btn_area{
+    display: flex;
+    margin: auto;
+}
+.edit_form{
+    margin-right: 10px;
+}
+.edit_form input,
+.del_area input {
+    border-radius: 5px;
+    padding: 5px 12px;
+    border: none;
+}
+.memo_form input[type="submit"]:hover,
+.edit_form input:hover,
+.del_area input:hover{
+    opacity: .8;
+}
+.edit_form input{
+    background-color: #38B000;
+    color: #fefefe;
+    font-weight: bold;
+}
+.del_area input{
+    background-color: #d64045;
+    color: #fefefe;
+    font-weight: bold;
+}
