@@ -12,13 +12,12 @@
     <div class="memo_area">
         <div class="memo_form">
             <h2>メモを編集</h2>
-            <form>
-                <form action="{{asset('/update')}}" method="post">
+                <form action="{{ asset('/update') }}" method="post">
                     @csrf
-                    <input type="hidden" name="edit_id" value="{{$memo_info->id}}">
-                    <input class="memo_text" type="text" name="edit_memo" value="{{$memo_info->content}}">
-                    <input type="submit" value="追加">
-            </form>
+                        <input type="hidden" name="edit_id" value="{{ $memo_info->id }}">
+                        <input class="memo_text" type="text" name="edit_memo" value="{{ $memo_info->content }}">
+                        <input type="submit" value="追加">
+                </form>
         </div>
     </div>
 </div>

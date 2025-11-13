@@ -6,7 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Memo;    // 追加
 
 class MemoController extends Controller
-{
+{    
+    public function store(Request $request)
+    {
+        Log::debug('This is a debug log.');
+
+        return view('home');
+    }
+    
     public function show()
     {
         $memo_info = Memo::get();
@@ -47,6 +54,8 @@ class MemoController extends Controller
 
         Memo::where('id', $edit_id)->update(['content' => $edit_memo]);
 
-        return self::show();
+    // 変更後はリダイレクトして最新の一覧を表示
+        return redirect('/');  
     }
+
 }

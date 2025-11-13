@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,5 @@ Route::get('/', 'App\\Http\\Controllers\\MemoController@show');
 Route::post('/add', 'App\\Http\\Controllers\\MemoController@add');
 Route::get('edit/{edit_id}', 'App\\Http\\Controllers\\MemoController@getEdit');
 Route::post('/delete', 'App\\Http\\Controllers\\MemoController@delete'); // 追加
-Route::post('update', 'App\\Http\\Controllers\\MemoController@postEdit');
+Route::post('/update', 'App\\Http\\Controllers\\MemoController@postEdit');
+
