@@ -20,8 +20,8 @@
         <!-- ここから追加  -->
         <div class="search_area" style="margin-top: 50px">
             <h2>検索</h2>
-            <form action="">
-                <input class="memo_text" type="text" name="search_word" id="search_word">
+            <form action="{{ route('home') }}" method="get">
+                <input  class="memo_text" type="text" name="search_word" id="search_word" value="{{ $search ?? '' }}">  <!-- 入力を残すため -->
                 <input type="submit" value="検索">
             </form>
         </div>

@@ -59,6 +59,26 @@ class MemoController extends Controller
         return redirect('/'); // PRG パターン
     }
 
+    public function index(Request $request)
+    {
+    // ① 検索ワードを受け取る（ない場合は null）
+        $search = $request->query('search_word');
+
+    // ② 検索ワードがあるかどうかで出し分け
+        if ($search) {
+        // 検索ワードを含むメモだけを取り出す
+            $memo_info = Memo::where('content', 'LIKE', '%' . $search . '%')
+                         ->orderBy('created_at', 'desc')
+                         ->get();
+        } else {
+        // 全部のメモを取り出す
+            $memo_info = Memo::orderBy('created_at', 'desc')->get();
+        }
+
+        // ③ 結果をビューに返す
+        return view('home', compact('memo_info', 'search'));
+    }
+    
     public function postEdit(Request $request)
     {
         $edit_id = $request->edit_id;
