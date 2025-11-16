@@ -17,7 +17,16 @@
                 <input class="memo_text" type="text" name="memo_text" id="memo_text">
                 <input type="submit" value="追加">
             </form>
+        <!-- ここから追加  -->
+        <div class="search_area" style="margin-top: 50px">
+            <h2>検索</h2>
+            <form action="">
+                <input class="memo_text" type="text" name="search_word" id="search_word">
+                <input type="submit" value="検索">
+            </form>
         </div>
+        <!-- ここまでを追加  -->
+    </div>
         <div class="memo_show">
             @foreach($memo_info as $memo)
                 <div class="memo_item">

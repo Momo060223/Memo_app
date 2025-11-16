@@ -14,10 +14,8 @@ use App\Http\Controllers\MemoController;
 |
 */
 
-// この部分を追加
-Route::get('/', 'App\\Http\\Controllers\\MemoController@show');
-Route::post('/add', 'App\\Http\\Controllers\\MemoController@add');
-Route::get('edit/{edit_id}', 'App\\Http\\Controllers\\MemoController@getEdit');
-Route::post('/delete', 'App\\Http\\Controllers\\MemoController@delete'); // 追加
+Route::get('/', [MemoController::class, 'show']);
+Route::post('/add', [MemoController::class, 'add']);
+Route::get('/edit/{edit_id}', [MemoController::class, 'getEdit']);
+Route::post('/delete', [MemoController::class, 'delete']);
 Route::post('/update', 'App\\Http\\Controllers\\MemoController@postEdit');
-

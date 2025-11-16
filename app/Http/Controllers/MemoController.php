@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Memo;    // 追加
+use Illuminate\Support\Facades\Log; //ログ出力用
+
 
 class MemoController extends Controller
 {    
     public function store(Request $request)
     {
         Log::debug('This is a debug log.');
+        Log::info('テストログ：コントローラーの処理が動きました');
+        Log::warning('注意ログ：予想外の値です');
+        Log::error('エラーログ：処理中に問題が発生しました');
 
-        return view('home');
+        // show() で $memo_info を渡して home.blade.php を表示
+        return $this->show();
     }
     
     public function show()
@@ -24,11 +30,14 @@ class MemoController extends Controller
     public function add(Request $request)
     {
         $memo_text = $request->memo_text;
+
+        // 新しいメモを作成
         $memo_model = new Memo();
         $memo_model->content = $memo_text;
         $memo_model->save();
-    
-        return self::show(); // ここを書き替える
+
+        // 追加後はリダイレクトして show() を経由させる
+        return redirect('/');  
     }
 
     public function getEdit($edit_id)
@@ -42,9 +51,12 @@ class MemoController extends Controller
         $delete_id = $request->delete_id;
 
         $memo_model = Memo::find($delete_id);
-        $memo_model->delete();
+        if (!$memo_model) {
+            return redirect('/')->with('error', '削除対象のメモが存在しません。');
+        }
 
-        return self::show();
+        $memo_model->delete();
+        return redirect('/'); // PRG パターン
     }
 
     public function postEdit(Request $request)
@@ -52,10 +64,12 @@ class MemoController extends Controller
         $edit_id = $request->edit_id;
         $edit_memo = $request->edit_memo;
 
+        // ID に該当するメモを更新
         Memo::where('id', $edit_id)->update(['content' => $edit_memo]);
 
-    // 変更後はリダイレクトして最新の一覧を表示
-        return redirect('/');  
+        // 更新後はトップページにリダイレクト
+        return redirect('/');
     }
 
 }
+ 
