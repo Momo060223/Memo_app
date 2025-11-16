@@ -9,50 +9,70 @@
 </head>
 <body>
 <div class="container">
+
     <div class="memo_area">
+
         <div class="memo_form">
             <h2>メモを追加</h2>
             <form action="{{ asset('/add') }}" method="post">
-	        @csrf
+                @csrf
                 <input class="memo_text" type="text" name="memo_text" id="memo_text">
                 <input type="submit" value="追加">
             </form>
-        <!-- ここから追加  -->
-        <div class="search_area" style="margin-top: 50px">
-            <h2>検索</h2>
-            <form action="{{ route('home') }}" method="get">
-                <input  class="memo_text" type="text" name="search_word" id="search_word" value="{{ $search ?? '' }}">  <!-- 入力を残すため -->
-                <input type="submit" value="検索">
-            </form>
-        </div>
-        <!-- ここまでを追加  -->
-    </div>
+
+            <!-- ここから検索フォーム -->
+            <div class="search_area" style="margin-top: 50px">
+                <h2>検索</h2>
+                <form action="{{ route('home') }}" method="get">
+                    <input class="memo_text" type="text" name="search_word" id="search_word"
+                           value="{{ $search ?? '' }}">   <!-- 入力保持 -->
+                    <input type="submit" value="検索">
+                </form>
+            </div>
+            <!-- ここまで検索フォーム -->
+
+        </div> <!-- memo_form 終了 -->
+
         <div class="memo_show">
-            @foreach($memo_info as $memo)
-                <div class="memo_item">
-                    <div class="memo_title">
-                        <time>{{$memo->created_at}}</time>
-                        <p>{{$memo->content}}</p>
-                    </div>
-                    <div class="btn_area">
-                        <div class="edit_form">
-                            <form action="{{ asset('/edit/'.$memo->id) }}" method="get">
-                                @csrf
-                                <input type="submit" value="編集">
-                            </form>
+
+            {{-- 結果が0件の場合 --}}
+            @if($memo_info->isEmpty())
+                <p>メモが見つかりませんでした。</p>
+            @else
+
+                {{-- メモ一覧表示 --}}
+                @foreach($memo_info as $memo)
+                    <div class="memo_item">
+                        <div class="memo_title">
+                            <time>{{ $memo->created_at }}</time>
+                            <p>{{ $memo->content }}</p>
                         </div>
-                        <div class="del_area">
-                            <form action="{{ asset('/delete') }}" method="post"> 
-                            @csrf
-                                <input type="hidden" name="delete_id" value="{{$memo->id}}">
-                                <input type="submit" value="削除">
-                            </form>
+
+                        <div class="btn_area">
+                            <div class="edit_form">
+                                <form action="{{ asset('/edit/'.$memo->id) }}" method="get">
+                                    @csrf
+                                    <input type="submit" value="編集">
+                                </form>
+                            </div>
+
+                            <div class="del_area">
+                                <form action="{{ asset('/delete') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="delete_id" value="{{ $memo->id }}">
+                                    <input type="submit" value="削除">
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>    
-            @endforeach
-        </div>
-    </div>
-</div>
+                @endforeach
+
+            @endif
+
+        </div> <!-- memo_show 終了 -->
+
+    </div> <!-- memo_area 終了 -->
+
+</div> <!-- container 終了 -->
 </body>
 </html>
