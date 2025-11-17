@@ -30,7 +30,11 @@
                 </form>
             </div>
             <!-- ここまで検索フォーム -->
-
+            <!-- ここからお気に入り一覧エリア -->
+            <div class= "favorite area" style="margin-top: 50px">
+                <a href="{{ route('favorites') }}" class="btn btn-primary">★ お気に入りだけを見る</a>
+            </div>
+            <!-- ここまでお気に入り一覧エリア -->
         </div> <!-- memo_form 終了 -->
 
         <div class="memo_show">
@@ -63,6 +67,18 @@
                                     <input type="submit" value="削除">
                                 </form>
                             </div>
+
+                            <div class="favorite_area">
+                                <form action="{{ asset('/favorite/'.$memo->id) }}" method="post">
+                                    @csrf
+                                    <button type="submit" style="background:none; border:none; font-size:20px;">
+                                        {{-- お気に入りなら黄色、そうでなければ灰色 --}}
+                                        <span class="star-icon @if($memo->is_favorite) active @endif">
+                                            ★
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -70,7 +86,7 @@
             @endif
 
         </div> <!-- memo_show 終了 -->
-
+       
     </div> <!-- memo_area 終了 -->
 
 </div> <!-- container 終了 -->

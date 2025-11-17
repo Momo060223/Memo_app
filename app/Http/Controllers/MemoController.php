@@ -91,5 +91,26 @@ class MemoController extends Controller
         return redirect('/');
     }
 
+    public function favorite($id)
+    {
+        $memo = Memo::find($id);
+
+        // もし今がお気に入りなら解除、そうでなければ登録
+        $memo->is_favorite = !$memo->is_favorite;
+
+        $memo->save();
+
+        return redirect()->route('home');
+    }
+
+    public function favoriteList()
+    {
+        // is_favorite が「1（お気に入り）」のメモだけ取ってくる
+        $memo_info = Memo::where('is_favorite', true)
+                     ->orderBy('created_at', 'desc')
+                     ->get();
+
+        return view('favorites', compact('memo_info'));
+    }
 }
  

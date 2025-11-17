@@ -19,4 +19,6 @@ Route::post('/add', [MemoController::class, 'add']);
 Route::get('/edit/{edit_id}', [MemoController::class, 'getEdit']);
 Route::post('/delete', [MemoController::class, 'delete']);
 Route::get('/', [MemoController::class, 'index'])->name('home');
+Route::post('/favorite/{id}', [MemoController::class, 'favorite']);
+Route::get('/favorites', [MemoController::class, 'favoriteList'])->name('favorites');
 Route::post('/update', 'App\\Http\\Controllers\\MemoController@postEdit');
